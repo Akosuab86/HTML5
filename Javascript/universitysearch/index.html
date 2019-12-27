@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        <script>
+                        $(document).ready(function(){
+  
+   $("body").css("background-color", "lightyellowyellow")
+
+	$("#form").submit(function(e){
+                      e.preventDefault();
+                        var list = ""
+                        	var country = $("#country").val()
+                          var univ_name = $("#univ_name").val() 
+                        	var univAPI = "http://universities.hipolabs.com/search?" 
+                          if(country != ""){
+                            univAPI = univAPI + "country=" + country 
+                          }
+                       	 if (univ_name != ""){
+                           univAPI = univAPI + "&name=" + univ_name
+                         }
+                        	
+                           $.getJSON (univAPI).done(function(data) {
+                             
+                          for (var i = 0; i < data.length; i++) {
+                          list = list + "<tr><td>"+data[i].name+"</td><td>"+data[i].country+"</td><td><a target='_blank' href= ' "+data[i].web_pages[0]+"'> "+data[i].web_pages[0]+"</a></td></tr>" 
+                           
+                          }
+                             
+                 $('#cname').hmtl(list) + "<br>"
+ 	 
+                     	});
+
+                 	});
+
+
+              });
+          
+          
+        </script>
+        
+
+      
+    </head>
+   
+    <body class= "bg bg-warning">
+        <div class="container">
+                <div class='row'>
+                    <div class='col-lg-12'>
+                
+                <h1>
+                  Search For Any Universities In The World.
+                      </h1>      
+                      
+                      
+                    <form id="form">
+  Country:<br>
+  <input type="text" name="country" id="country" class="form-control" value="GHANA">
+  <br>
+ Name:<br>
+  <input type="text" name="univ_name" id="univ_name" class="form-control">
+  <br>                    
+  <input type="submit" class="btn btn-danger btn-lg" value="Search For Universities">
+                      
+     </form> 
+                 
+              <p> List of Universities </p>
+                      <table  class="table table- bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>University</th>
+                             <th>Country</th>
+                             <th>Website</th>
+                          </tr>
+                       
+                        </thead>
+                        <tbody id= "cname">  
+                        
+                        </tbody>
+                        
+                      </table>
+                
+                <span> <p></p></span>            
+                   
+                  </div>
+                
+        
+            </div>
+        </div>  
+    </body>
+    
+</html>
